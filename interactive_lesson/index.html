@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#6366f1">
+  <title>Phonic Sound Practice</title>
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="manifest" href="manifest.webmanifest">
+</head>
+<body>
+  <div id="loading-screen" class="loading-screen" aria-live="polite">
+    <div class="loader-spinner" aria-hidden="true"></div>
+    <p class="loading-text">Loading lesson…</p>
+    <div class="loading-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div id="loading-progress" class="loading-bar-fill"></div>
+    </div>
+  </div>
+
+  <main id="app" class="app hidden" aria-label="Interactive lesson">
+    <header class="top-bar">
+      <button type="button" id="btn-home" class="btn btn-icon" title="Home" aria-label="Go to first slide">
+        <span class="icon" aria-hidden="true">🏠</span>
+      </button>
+      <div class="slide-counter" id="slide-counter" aria-live="polite">1 / 50</div>
+      <div class="top-actions">
+        <button type="button" id="btn-mute" class="btn btn-icon" title="Mute" aria-label="Mute narration">
+          <span class="icon" id="mute-icon" aria-hidden="true">🔊</span>
+        </button>
+        <button type="button" id="btn-theme" class="btn btn-icon" title="Dark mode" aria-label="Toggle dark mode">
+          <span class="icon" aria-hidden="true">🌙</span>
+        </button>
+      </div>
+    </header>
+
+    <section class="slide-viewport" id="slide-viewport">
+      <div class="slide-stage" id="slide-stage">
+        <img id="slide-image" class="slide-image" src="" alt="Lesson slide" draggable="false">
+      </div>
+    </section>
+
+    <nav class="controls" aria-label="Lesson controls">
+      <button type="button" id="btn-prev" class="btn btn-control" aria-label="Previous slide">
+        <span class="icon" aria-hidden="true">◀</span>
+        <span class="label">Previous</span>
+      </button>
+      <button type="button" id="btn-speak" class="btn btn-speak" aria-label="Play sound">
+        <span class="icon" aria-hidden="true">🔈</span>
+        <span class="label">Play</span>
+      </button>
+      <button type="button" id="btn-next" class="btn btn-control" aria-label="Next slide">
+        <span class="icon" aria-hidden="true">▶</span>
+        <span class="label">Next</span>
+      </button>
+    </nav>
+  </main>
+
+  <audio id="audio-first" preload="auto" playsinline></audio>
+  <audio id="audio-second" preload="auto" playsinline></audio>
+
+  <script>
+    window.LESSON_CONFIG = {
+      slideCount: 50,
+      slidesBase: 'slides/',
+      audioBase: 'audio/',
+      sounds: [{"first": null, "second": null}, {"first": "audio/sound2_1.mp3", "second": "audio/sound2_2.mp3"}, {"first": "audio/sound3_1.mp3", "second": "audio/sound3_2.mp3"}, {"first": "audio/sound4_1.mp3", "second": "audio/sound4_2.mp3"}, {"first": "audio/sound5_1.mp3", "second": "audio/sound5_2.mp3"}, {"first": "audio/sound6_1.mp3", "second": "audio/sound6_2.mp3"}, {"first": "audio/sound7_1.mp3", "second": null}, {"first": null, "second": null}, {"first": "audio/sound9_1.mp3", "second": "audio/sound9_2.mp3"}, {"first": "audio/sound10_1.mp3", "second": "audio/sound10_2.mp3"}, {"first": "audio/sound11_1.mp3", "second": "audio/sound11_2.mp3"}, {"first": "audio/sound12_1.mp3", "second": "audio/sound12_2.mp3"}, {"first": "audio/sound13_1.mp3", "second": "audio/sound13_2.mp3"}, {"first": null, "second": "audio/sound14_2.mp3"}, {"first": null, "second": "audio/sound15_2.mp3"}, {"first": null, "second": null}, {"first": null, "second": null}, {"first": null, "second": "audio/sound18_2.mp3"}, {"first": null, "second": null}, {"first": null, "second": "audio/sound20_2.mp3"}, {"first": "audio/sound21_1.mp3", "second": "audio/sound21_2.mp3"}, {"first": "audio/sound22_1.mp3", "second": "audio/sound22_2.mp3"}, {"first": "audio/sound23_1.mp3", "second": "audio/sound23_2.mp3"}, {"first": null, "second": null}, {"first": null, "second": "audio/sound25_2.mp3"}, {"first": "audio/sound26_1.mp3", "second": null}, {"first": "audio/sound27_1.mp3", "second": "audio/sound27_2.mp3"}, {"first": "audio/sound28_1.mp3", "second": null}, {"first": "audio/sound29_1.mp3", "second": null}, {"first": "audio/sound30_1.mp3", "second": "audio/sound30_2.mp3"}, {"first": null, "second": null}, {"first": "audio/sound32_1.mp3", "second": "audio/sound32_2.mp3"}, {"first": "audio/sound33_1.mp3", "second": "audio/sound33_2.mp3"}, {"first": "audio/sound34_1.mp3", "second": "audio/sound34_2.mp3"}, {"first": "audio/sound35_1.mp3", "second": "audio/sound35_2.mp3"}, {"first": "audio/sound36_1.mp3", "second": "audio/sound36_2.mp3"}, {"first": null, "second": null}, {"first": "audio/sound38_1.mp3", "second": "audio/sound38_2.mp3"}, {"first": "audio/sound39_1.mp3", "second": "audio/sound39_2.mp3"}, {"first": "audio/sound40_1.mp3", "second": "audio/sound40_2.mp3"}, {"first": "audio/sound41_1.mp3", "second": null}, {"first": null, "second": "audio/sound42_2.mp3"}, {"first": null, "second": null}, {"first": null, "second": null}, {"first": null, "second": "audio/sound45_2.mp3"}, {"first": null, "second": null}, {"first": null, "second": null}, {"first": "audio/sound48_1.mp3", "second": "audio/sound48_2.mp3"}, {"first": null, "second": null}, {"first": null, "second": null}],
+      storageKey: 'lesson-progress'
+    };
+  </script>
+  <script src="js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(function() {});
+    }
+  </script>
+</body>
+</html>

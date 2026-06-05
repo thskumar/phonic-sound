@@ -1,0 +1,247 @@
+
+:root {
+  --bg: #fff8f0;
+  --surface: #ffffff;
+  --text: #2d3748;
+  --accent: #6366f1;
+  --accent-dark: #4f46e5;
+  --speak: #10b981;
+  --speak-dark: #059669;
+  --radius: 16px;
+  --shadow: 0 8px 32px rgba(99, 102, 241, 0.15);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+
+body.dark {
+  --bg: #1a202c;
+  --surface: #2d3748;
+  --text: #f7fafc;
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hidden { display: none !important; }
+
+/* Loading */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  z-index: 1000;
+  padding: 24px;
+}
+
+.loader-spinner {
+  width: 56px;
+  height: 56px;
+  border: 5px solid rgba(99, 102, 241, 0.2);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loading-text {
+  margin-top: 20px;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.loading-bar {
+  width: min(280px, 80vw);
+  height: 8px;
+  background: rgba(99, 102, 241, 0.15);
+  border-radius: 8px;
+  margin-top: 16px;
+  overflow: hidden;
+}
+
+.loading-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  border-radius: 8px;
+  transition: width 0.2s ease;
+}
+
+/* App layout */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  height: 100dvh;
+  padding-top: var(--safe-top);
+  padding-bottom: var(--safe-bottom);
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.slide-counter {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--accent);
+}
+
+.top-actions { display: flex; gap: 8px; }
+
+.slide-viewport {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 12px;
+  position: relative;
+}
+
+.slide-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  position: relative;
+}
+
+.slide-image {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  min-height: 120px;
+  object-fit: contain;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.slide-image.is-loading {
+  opacity: 0.35;
+}
+
+.slide-image.transition-out {
+  opacity: 0;
+  transform: scale(0.98);
+}
+
+.slide-image.transition-in {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Controls */
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: 10px;
+  padding: 12px 16px calc(12px + var(--safe-bottom));
+  background: var(--surface);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.06);
+  flex-shrink: 0;
+}
+
+.btn {
+  border: none;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 12px 16px;
+  transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
+  -webkit-touch-callout: none;
+}
+
+.btn:active { transform: scale(0.96); }
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-icon {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 8px;
+  background: transparent;
+  font-size: 1.35rem;
+}
+
+.btn-control {
+  background: rgba(99, 102, 241, 0.12);
+  color: var(--accent);
+}
+
+.btn-control:active {
+  background: rgba(99, 102, 241, 0.22);
+}
+
+.btn-speak {
+  background: var(--speak);
+  color: #fff;
+  font-size: 1.05rem;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.35);
+  /* Hug the label and sit centered (oval pill, not stretched) */
+  justify-self: center;
+  width: auto;
+  border-radius: 999px;
+  padding: 12px 28px;
+}
+
+.btn-speak.playing {
+  background: var(--speak-dark);
+  animation: pulse 1.2s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 4px 16px rgba(16, 185, 129, 0.35); }
+  50% { box-shadow: 0 4px 24px rgba(16, 185, 129, 0.6); }
+}
+
+.btn-speak .icon { font-size: 1.4rem; }
+
+@media (max-width: 480px) {
+  .btn .label { font-size: 0.85rem; }
+  .controls { gap: 8px; padding: 10px 12px; }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .slide-viewport { padding: 6px; }
+  .controls { padding: 8px 12px; }
+  .btn { min-height: 44px; }
+}
