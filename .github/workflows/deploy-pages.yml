@@ -26,6 +26,8 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       # Publish only the built app so the site root serves the lesson directly
       - name: Upload site artifact
